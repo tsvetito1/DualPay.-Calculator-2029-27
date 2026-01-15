@@ -1,0 +1,117 @@
+<!DOCTYPE index.html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DualPay - Ресто Калкулатор</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --primary-dark-blue: #1e3a8a; /* Тъмно синьо */
+            --accent-light-blue: #3b82f6; /* Светло синьо */
+            --bg-blue-wash: #f0f7ff;      /* Много светло син фон */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-blue-wash);
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1, h2, .font-comfortaa {
+            font-family: 'Comfortaa', cursive;
+        }
+
+        /* Динамичен фон */
+        .bg-grid {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 20px;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .symbol {
+            font-size: 2rem;
+            color: var(--primary-dark-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-20px) rotate(10deg) scale(1.1); }
+        }
+
+        /* Стъклен ефект */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(30, 58, 138, 0.15);
+        }
+
+        input {
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .segment-btn.active {
+            background-color: var(--primary-dark-blue);
+            color: white;
+        }
+
+        /* Анимация на резултатите */
+        #result-box {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hidden-result {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-animation" class="bg-grid"></div>
+
+    <main class="flex items-center justify-center min-h-screen p-4">
+        <div class="glass-card w-full max-w-md overflow-hidden flex flex-col h-[90vh] md:h-auto">
+            
+            <div class="p-6 pb-2 flex flex-col items-center">
+                <div class="bg-[#1e3a8a] p-3 rounded-2xl shadow-lg mb-3 flex items-center justify-center">
+                    <span class="font-comfortaa text-white text-2xl font-bold">€ ⇄ лв</span>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">DualPay</h1>
+            </div>
+
+            <div class="p-6 space-y-4 flex-1 overflow-y-auto">
+                
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-600">Сума за плащане</label>
+                    <div class="flex">
+                        <input type="number" id="billAmount" step="0.01" placeholder="0.00" 
+                               class="w-full p-4 bg-blue-100/50 rounded-l-2xl text-xl font-bold text-gray-800 border-none">
+                        <button id="billCurrencyToggle" class="bg-[#3b82f6] text-white px-4 rounded-r-2xl font-bold min-w-
