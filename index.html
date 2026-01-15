@@ -1,0 +1,111 @@
+<!DOCTYPE index.html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DualPay - Калкулатор за Ресто</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sky-blue': '#87CEEB',
+                        'navy-accent': '#003366',
+                    },
+                    fontFamily: {
+                        'title': ['Comfortaa', 'cursive'],
+                        'data': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #87CEEB;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Динамичен фон */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            z-index: -1;
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            opacity: 0.1;
+            pointer-events: none;
+            animation: floatBackground 30s linear infinite;
+        }
+
+        .bg-symbol {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #003366;
+        }
+
+        @keyframes floatBackground {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(-5%, -5%) rotate(5deg) scale(1.1); }
+            100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 2rem;
+            width: 90%;
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        .input-group {
+            background: rgba(135, 206, 235, 0.4);
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #003366;
+        }
+
+        .segmented-control {
+            display: flex;
+            background: rgba(0, 51, 102, 0.1);
+            border-radius: 0.75rem;
+            padding: 2px;
+        }
+
+        .segment-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 0.6rem;
+            text-align: center;
+            cursor: pointer;
